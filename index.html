@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atelier Soraha — 静かな日々のためのスタジオ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Shippori+Mincho:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4efe6;
+    --ink: #1a1a1a;
+    --paper: #ffffff;
+    --accent: #c2410c;
+    --muted: #6b6357;
+    --line: #d8cfbf;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+font-family: ‘Shippori Mincho’, ‘Fraunces’, serif;
+background: var(–bg);
+color: var(–ink);
+line-height: 1.7;
+overflow-x: hidden;
+}
+
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image:
+radial-gradient(circle at 20% 30%, rgba(194, 65, 12, 0.04) 0%, transparent 40%),
+radial-gradient(circle at 80% 70%, rgba(26, 26, 26, 0.03) 0%, transparent 40%);
+pointer-events: none;
+z-index: 0;
+}
+
+.grain {
+position: fixed;
+inset: 0;
+pointer-events: none;
+opacity: 0.4;
+z-index: 1;
+background-image: url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘200’ height=‘200’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence baseFrequency=‘0.9’ numOctaves=‘2’/%3E%3CfeColorMatrix values=‘0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
+}
+
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+padding: 24px 48px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+z-index: 100;
+backdrop-filter: blur(8px);
+background: rgba(244, 239, 230, 0.7);
+border-bottom: 1px solid var(–line);
+}
+
+.logo {
+font-family: ‘Fraunces’, serif;
+font-style: italic;
+font-size: 22px;
+letter-spacing: -0.02em;
+}
+
+.logo span { color: var(–accent); }
+
+.nav-links {
+display: flex;
+gap: 36px;
+list-style: none;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 0.15em;
+}
+
+.nav-links a {
+color: var(–ink);
+text-decoration: none;
+position: relative;
+transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(–accent); }
+
+.nav-links a::after {
+content: ‘’;
+position: absolute;
+bottom: -4px; left: 0;
+width: 0; height: 1px;
+background: var(–accent);
+transition: width 0.3s;
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+.hero {
+min-height: 100vh;
+padding: 140px 48px 80px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 80px;
+align-items: center;
+position: relative;
+z-index: 2;
+}
+
+.hero-text { animation: rise 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+
+.hero-tag {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–muted);
+margin-bottom: 32px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.hero-tag::before {
+content: ‘’;
+width: 32px; height: 1px;
+background: var(–accent);
+}
+
+h1 {
+font-family: ‘Shippori Mincho’, serif;
+font-size: clamp(48px, 6vw, 88px);
+line-height: 1.05;
+font-weight: 400;
+letter-spacing: -0.02em;
+margin-bottom: 32px;
+}
+
+h1 em {
+font-family: ‘Fraunces’, serif;
+font-style: italic;
+color: var(–accent);
+font-weight: 300;
+}
+
+.hero-text p {
+font-size: 17px;
+color: var(–muted);
+max-width: 440px;
+margin-bottom: 40px;
+}
+
+.cta {
+display: inline-flex;
+align-items: center;
+gap: 12px;
+padding: 16px 28px;
+background: var(–ink);
+color: var(–bg);
+text-decoration: none;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+transition: all 0.3s;
+}
+
+.cta:hover {
+background: var(–accent);
+transform: translateY(-2px);
+}
+
+.cta::after {
+content: ‘→’;
+transition: transform 0.3s;
+}
+
+.cta:hover::after { transform: translateX(4px); }
+
+.hero-visual {
+position: relative;
+aspect-ratio: 4 / 5;
+animation: rise 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+.frame {
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, #d4b896 0%, #a8896b 100%);
+overflow: hidden;
+box-shadow: 24px 24px 0 var(–ink);
+}
+
+.frame::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background:
+repeating-linear-gradient(45deg, transparent 0, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 21px);
+}
+
+.frame-label {
+position: absolute;
+bottom: 24px; left: 24px;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 10px;
+color: var(–bg);
+letter-spacing: 0.2em;
+text-transform: uppercase;
+}
+
+.frame-num {
+position: absolute;
+top: 24px; right: 24px;
+font-family: ‘Fraunces’, serif;
+font-style: italic;
+font-size: 64px;
+color: rgba(255,255,255,0.3);
+line-height: 1;
+}
+
+section {
+padding: 120px 48px;
+position: relative;
+z-index: 2;
+}
+
+.section-header {
+display: grid;
+grid-template-columns: 1fr 2fr;
+gap: 80px;
+margin-bottom: 80px;
+align-items: end;
+}
+
+.section-num {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 12px;
+color: var(–muted);
+letter-spacing: 0.2em;
+}
+
+h2 {
+font-family: ‘Shippori Mincho’, serif;
+font-size: clamp(36px, 4vw, 56px);
+line-height: 1.15;
+font-weight: 400;
+letter-spacing: -0.01em;
+}
+
+h2 em {
+font-family: ‘Fraunces’, serif;
+font-style: italic;
+color: var(–accent);
+}
+
+.work-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 32px;
+}
+
+.work-item {
+border-top: 1px solid var(–line);
+padding-top: 24px;
+transition: all 0.4s;
+}
+
+.work-item:hover {
+border-color: var(–accent);
+transform: translateY(-4px);
+}
+
+.work-thumb {
+aspect-ratio: 1;
+background: var(–paper);
+margin-bottom: 16px;
+position: relative;
+overflow: hidden;
+border: 1px solid var(–line);
+}
+
+.work-thumb-inner {
+position: absolute;
+inset: 24px;
+background: linear-gradient(135deg, var(–ink) 0%, #3a3a3a 100%);
+transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-item:nth-child(2) .work-thumb-inner {
+background: linear-gradient(135deg, var(–accent) 0%, #f59e0b 100%);
+}
+
+.work-item:nth-child(3) .work-thumb-inner {
+background: linear-gradient(135deg, #5a6e58 0%, #8ba888 100%);
+}
+
+.work-item:hover .work-thumb-inner { transform: scale(1.05); }
+
+.work-meta {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+color: var(–muted);
+letter-spacing: 0.15em;
+text-transform: uppercase;
+margin-bottom: 8px;
+}
+
+.work-title {
+font-family: ‘Fraunces’, serif;
+font-size: 20px;
+font-style: italic;
+font-weight: 400;
+}
+
+.about {
+background: var(–ink);
+color: var(–bg);
+margin: 0 -48px;
+padding: 120px 96px;
+}
+
+.about h2 { color: var(–bg); }
+.about h2 em { color: #f59e0b; }
+
+.about-text {
+font-size: 18px;
+color: rgba(244, 239, 230, 0.7);
+max-width: 680px;
+margin-top: 32px;
+}
+
+.about-text p + p { margin-top: 20px; }
+
+.contact {
+text-align: center;
+padding: 160px 48px;
+}
+
+.contact h2 {
+font-size: clamp(48px, 7vw, 96px);
+margin-bottom: 32px;
+}
+
+.contact-mail {
+font-family: ‘Fraunces’, serif;
+font-style: italic;
+font-size: 28px;
+color: var(–accent);
+text-decoration: none;
+border-bottom: 1px solid var(–accent);
+padding-bottom: 4px;
+}
+
+footer {
+border-top: 1px solid var(–line);
+padding: 48px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(–muted);
+position: relative;
+z-index: 2;
+}
+
+footer a {
+color: var(–muted);
+text-decoration: none;
+transition: color 0.3s;
+}
+
+footer a:hover { color: var(–accent); }
+
+.footer-links { display: flex; gap: 32px; }
+
+/* Privacy Modal */
+.modal-overlay {
+position: fixed;
+inset: 0;
+background: rgba(26, 26, 26, 0.6);
+backdrop-filter: blur(4px);
+z-index: 1000;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s;
+}
+
+.modal-overlay.active {
+opacity: 1;
+pointer-events: auto;
+}
+
+.modal {
+position: fixed;
+top: 50%; left: 50%;
+transform: translate(-50%, -45%);
+width: min(720px, 90vw);
+max-height: 85vh;
+background: var(–bg);
+z-index: 1001;
+opacity: 0;
+pointer-events: none;
+transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+overflow: hidden;
+display: flex;
+flex-direction: column;
+box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+}
+
+.modal.active {
+opacity: 1;
+pointer-events: auto;
+transform: translate(-50%, -50%);
+}
+
+.modal-header {
+padding: 32px 40px;
+border-bottom: 1px solid var(–line);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.modal-header h3 {
+font-family: ‘Shippori Mincho’, serif;
+font-size: 24px;
+font-weight: 400;
+}
+
+.modal-header h3 em {
+font-family: ‘Fraunces’, serif;
+font-style: italic;
+color: var(–accent);
+}
+
+.modal-close {
+background: none;
+border: none;
+font-size: 24px;
+cursor: pointer;
+color: var(–ink);
+width: 36px; height: 36px;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.3s;
+}
+
+.modal-close:hover {
+background: var(–ink);
+color: var(–bg);
+transform: rotate(90deg);
+}
+
+.modal-body {
+padding: 32px 40px 40px;
+overflow-y: auto;
+font-size: 15px;
+color: var(–ink);
+}
+
+.modal-body h4 {
+font-family: ‘Fraunces’, serif;
+font-style: italic;
+font-size: 18px;
+font-weight: 600;
+color: var(–accent);
+margin: 28px 0 12px;
+}
+
+.modal-body h4:first-child { margin-top: 0; }
+
+.modal-body p {
+color: var(–muted);
+margin-bottom: 12px;
+line-height: 1.75;
+}
+
+.modal-body ul {
+margin-left: 20px;
+color: var(–muted);
+}
+
+.modal-body li { margin-bottom: 6px; }
+
+.modal-body .updated {
+font-family: ‘JetBrains Mono’, monospace;
+font-size: 11px;
+letter-spacing: 0.15em;
+color: var(–muted);
+margin-top: 32px;
+padding-top: 20px;
+border-top: 1px solid var(–line);
+}
+
+@keyframes rise {
+from { opacity: 0; transform: translateY(40px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+nav { padding: 16px 24px; }
+.nav-links { display: none; }
+.hero {
+grid-template-columns: 1fr;
+padding: 120px 24px 60px;
+gap: 48px;
+}
+section { padding: 80px 24px; }
+.section-header { grid-template-columns: 1fr; gap: 24px; }
+.work-grid { grid-template-columns: 1fr; }
+.about { margin: 0 -24px; padding: 80px 32px; }
+footer {
+padding: 32px 24px;
+flex-direction: column;
+gap: 24px;
+text-align: center;
+}
+.modal-header, .modal-body { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav>
+  <div class="logo">Atelier <span>Soraha</span></div>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">Studio est. 2019 / Tokyo</div>
+    <h1>静けさを、<br>かたちに。<br><em>Quiet design</em></h1>
+    <p>余白と素材を大切にしながら、ブランド・空間・印刷物のデザインを手がけています。日常にそっと寄り添う、ささやかな美しさを。</p>
+    <a href="#contact" class="cta">Start a project</a>
+  </div>
+  <div class="hero-visual">
+    <div class="frame">
+      <div class="frame-num">'26</div>
+      <div class="frame-label">Selected Works</div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-header">
+    <div class="section-num">01 / Work</div>
+    <h2>近作より、<br><em>three selected pieces.</em></h2>
+  </div>
+  <div class="work-grid">
+    <div class="work-item">
+      <div class="work-thumb"><div class="work-thumb-inner"></div></div>
+      <div class="work-meta">Branding · 2025</div>
+      <div class="work-title">Hoshino Tea House</div>
+    </div>
+    <div class="work-item">
+      <div class="work-thumb"><div class="work-thumb-inner"></div></div>
+      <div class="work-meta">Editorial · 2025</div>
+      <div class="work-title">Magazine "Asahi"</div>
+    </div>
+    <div class="work-item">
+      <div class="work-thumb"><div class="work-thumb-inner"></div></div>
+      <div class="work-meta">Interior · 2024</div>
+      <div class="work-title">Mori Bookshop</div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="section-header">
+    <div class="section-num" style="color: rgba(244,239,230,0.5);">02 / About</div>
+    <h2>小さなアトリエ、<br><em>大きな手仕事。</em></h2>
+  </div>
+  <div class="about-text">
+    <p>Atelier Sorahaは、東京・谷中の小さなアトリエを拠点に活動するデザインスタジオです。ブランディング、エディトリアル、空間設計まで、領域を横断しながら、ひとつひとつの仕事に丁寧に向き合っています。</p>
+    <p>大量生産の速度から少し離れて、素材の手触り、文字の呼吸、余白のひびきに耳を澄ませる——そんなものづくりを目指しています。</p>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="section-num" style="margin-bottom: 24px;">03 / Contact</div>
+  <h2>はじまりは、<br><em>一通のメールから。</em></h2>
+  <a href="mailto:hello@example.com" class="contact-mail">hello@example.com</a>
+</section>
+
+<footer>
+  <div>© 2026 Atelier Soraha</div>
+  <div class="footer-links">
+    <a href="#" onclick="openModal(event)">Privacy Policy</a>
+    <a href="mailto:hello@example.com">Email</a>
+    <a href="#">Instagram</a>
+  </div>
+</footer>
+
+<div class="modal-overlay" onclick="closeModal()"></div>
+<div class="modal" role="dialog" aria-labelledby="modal-title">
+  <div class="modal-header">
+    <h3 id="modal-title">プライバシー<em>ポリシー</em></h3>
+    <button class="modal-close" onclick="closeModal()" aria-label="閉じる">×</button>
+  </div>
+  <div class="modal-body">
+    <p>Atelier Soraha(以下「当スタジオ」)は、お客様の個人情報を大切にお預かりし、以下の方針に基づいて適切に取り扱います。</p>
+
+```
+<h4>1. 取得する情報</h4>
+<p>お問い合わせフォームやメールを通じて、お名前・メールアドレス・ご連絡内容などをお預かりする場合があります。また、サイトの利用状況を把握するため、Cookieやアクセスログを取得することがあります。</p>
+
+<h4>2. 利用目的</h4>
+<ul>
+  <li>お問い合わせへのご返信、ご相談の対応</li>
+  <li>制作・お打ち合わせのためのご連絡</li>
+  <li>サイトの改善およびサービス品質の向上</li>
+  <li>法令にもとづく対応</li>
+</ul>
+
+<h4>3. 第三者への提供</h4>
+<p>法令に基づく場合や、お客様の同意をいただいた場合を除き、取得した個人情報を第三者へ提供することはありません。</p>
+
+<h4>4. Cookieの利用について</h4>
+<p>当サイトでは、利用状況の把握のためGoogle Analytics等のアクセス解析ツールを使用する場合があります。これらはCookieを利用して情報を収集しますが、個人を特定するものではありません。ブラウザの設定によりCookieを無効化することも可能です。</p>
+
+<h4>5. 個人情報の管理</h4>
+<p>お預かりした個人情報は、紛失・改ざん・漏洩などを防ぐため、適切な安全管理措置を講じます。利用目的を達成した情報は、速やかに削除いたします。</p>
+
+<h4>6. 開示・訂正・削除のご請求</h4>
+<p>お客様ご自身の個人情報について、開示・訂正・削除をご希望の場合は、下記の連絡先までお申し出ください。本人確認のうえ、合理的な範囲で速やかに対応いたします。</p>
+
+<h4>7. お問い合わせ窓口</h4>
+<p>本ポリシーに関するお問い合わせは、<a href="mailto:hello@example.com" style="color: var(--accent);">hello@example.com</a> までお願いいたします。</p>
+
+<h4>8. ポリシーの改定</h4>
+<p>本プライバシーポリシーは、必要に応じて改定することがあります。重要な変更がある場合は、本ページにてお知らせいたします。</p>
+
+<div class="updated">Last updated · 2026.05.09</div>
+```
+
+  </div>
+</div>
+
+<script>
+  function openModal(e) {
+    if (e) e.preventDefault();
+    document.querySelector('.modal-overlay').classList.add('active');
+    document.querySelector('.modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.querySelector('.modal-overlay').classList.remove('active');
+    document.querySelector('.modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>
