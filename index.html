@@ -170,7 +170,10 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
   ttq.load('D86QQ5BC77U3446EDSCG');
   ttq.page();
   ttq.track('ViewContent', {
-    contents: [{ content_id: 'still-tumbler', content_type: 'product', content_name: '真空断熱タンブラー STILL' }],
+    content_id: 'still-tumbler',
+    content_type: 'product',
+    content_name: '真空断熱タンブラー STILL',
+    contents: [{ content_id: 'still-tumbler', content_type: 'product', content_name: '真空断熱タンブラー STILL', quantity: 1, price: 3980 }],
     value: 3980,
     currency: 'JPY'
   });
@@ -315,7 +318,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <div class="links">
       <a href="#">特定商取引法に基づく表記</a>
       <a href="#">プライバシーポリシー</a>
-      <a href="#">お問い合わせ</a>
+      <a href="#" id="contact-link">お問い合わせ</a>
       <a href="#">会社概要</a>
       <a href="#">返品・交換について</a>
     </div>
@@ -340,13 +343,33 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     btn.addEventListener('click', function(){
       if (window.ttq) {
         ttq.track('ClickButton', {
-          contents: [{ content_id: 'still-tumbler', content_type: 'product', content_name: '真空断熱タンブラー STILL' }],
+          content_id: 'still-tumbler',
+          content_type: 'product',
+          content_name: '真空断熱タンブラー STILL',
+          contents: [{ content_id: 'still-tumbler', content_type: 'product', content_name: '真空断熱タンブラー STILL', quantity: 1, price: 3980 }],
           value: 3980,
           currency: 'JPY'
         });
       }
     });
   });
+
+  // TikTok Contact: 「お問い合わせ」リンクのクリックで発火（練習用：お問い合わせ完了の代わり）
+  var contactLink = document.getElementById('contact-link');
+  if (contactLink) {
+    contactLink.addEventListener('click', function(){
+      if (window.ttq) {
+        ttq.track('Contact', {
+          content_id: 'still-tumbler',
+          content_type: 'product',
+          content_name: '真空断熱タンブラー STILL',
+          contents: [{ content_id: 'still-tumbler', content_type: 'product', content_name: '真空断熱タンブラー STILL', quantity: 1, price: 3980 }],
+          value: 3980,
+          currency: 'JPY'
+        });
+      }
+    });
+  }
 </script>
 </body>
 </html>
